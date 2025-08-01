@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Simple Banking UI</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #e0f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      width: 90%;
+      max-width: 300px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    h2 { margin-bottom: 10px; color: #00796b; }
+    .balance { font-size: 1.4rem; margin: 10px 0; color: green; }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 8px 0;
+      font-size: 1rem;
+    }
+    input { border: 1px solid #ccc; border-radius: 5px; }
+    button {
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+    }
+    .deposit { background: #4caf50; }
+    .withdraw { background: #f44336; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>My Bank</h2>
+    <div class="balance">₹<span id="balance">0.00</span></div>
+    <input type="number" id="amount" placeholder="Enter amount" />
+    <button class="deposit" onclick="deposit()">Deposit</button>
+    <button class="withdraw" onclick="withdraw()">Withdraw</button>
+  </div>
+
+  <script>
+    let balance = 0;
+    const balanceEl = document.getElementById('balance');
+    const amountInput = document.getElementById('amount');
+
+    function update() {
+      balanceEl.textContent = balance.toFixed(2);
+    }
+
+    function deposit() {
+      const amt = parseFloat(amountInput.value);
+      if (amt > 0) {
+        balance += amt;
+        update();
+        amountInput.value = '';
+      } else alert('Enter valid deposit amount.');
+    }
+
+    function withdraw() {
+      const amt = parseFloat(amountInput.value);
+      if (amt > 0 && amt <= balance) {
+        balance -= amt;
+        update();
+        amountInput.value = '';
+      } else alert('Invalid or insufficient funds.');
+    }
+
+    update();
+  </script>
+</body>
+</html>
